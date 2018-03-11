@@ -14,7 +14,7 @@ EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent& Own
     auto controlledPawn = OwnerComp.GetAIOwner()->GetPawn();
     auto patrolRoute = controlledPawn->FindComponentByClass<UPatrolRoute>();
     if(!patrolRoute){
-        FString name = GetName();
+        FString name = OwnerComp.GetAIOwner()->GetPawn()->GetName();
         UE_LOG(LogTemp, Warning, TEXT("%s is missing patrol component"), *name);
         return EBTNodeResult::Failed;} //no ensure, checks at runtime
     
@@ -22,7 +22,7 @@ EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent& Own
     auto patrolPoints = patrolRoute->GetPatrolPoints();
     if(patrolPoints.Num() == 0)
     {
-        FString name = GetName();
+        FString name = OwnerComp.GetAIOwner()->GetPawn()->GetName();
         UE_LOG(LogTemp, Warning, TEXT("%s is missing patrol points"), *name);
         return EBTNodeResult::Failed;
     }
